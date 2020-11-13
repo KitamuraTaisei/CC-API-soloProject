@@ -1,5 +1,6 @@
 const express = require("express");
 const createConnection = require("typeorm");
+//const { UserController } = require("../controller/UserController");
 import {
   getRepository,
   Repository,
@@ -10,6 +11,7 @@ import { User } from "./entity/User";
 import DatabaseConnectionManager from "./database";
 
 const setupServer = () => {
+  // const controller = UserController();
   const app = express();
   app.use(express.json());
 
@@ -20,12 +22,21 @@ const setupServer = () => {
 
   app.get("/user", (req, res) => {
     DatabaseConnectionManager.connect().then(async (connection) => {
-      console.log("今からリクエスト");
       const target = await connection.manager.find(User);
 
       res.send(target);
-      console.log(target);
       res.status(200).end();
+    });
+  });
+
+  app.post("/user/create", (req, res) => {
+    DatabaseConnectionManager.connect().then(async (connection) => {
+      console.log(req.body);
+      const getRepo = await getRepository(User);
+      const target = await getRepo.save(req.body);
+
+      res.send(target);
+      res.status(201).end();
     });
   });
 
