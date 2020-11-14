@@ -4,15 +4,17 @@ import chaiHttp from "chai-http";
 import { Application } from "express";
 import { getRepository, Repository, Not, IsNull } from "typeorm";
 import { v4 as uuid4 } from "uuid";
+import { Routes } from "../src/routes";
+import { User } from "../src/entity/User";
 //import DatabaseConnectionManager from "../database";
 //import User from "./src/entity/User";
 
-//const { UserController } = require("../controller/UserController");
+//import { UserController } from "../src/controller/UserController";
 chai.use(chaiHttp);
 const expect = chai.expect;
 const { setupServer } = require("../src/server");
 const server = setupServer();
-//const controller = UserController();
+//const controller = new UserController();
 
 describe("soloProject API Server", () => {
   let request;
@@ -39,7 +41,21 @@ describe("soloProject API Server", () => {
     // Setup
 
     //const userList = [
-    //    User { id: 1, firstName: 'Timber', lastName: 'Saw', age: 25 } ];
+    /*  const result = [
+        { id: 1, firstName: 'Timber', lastName: 'Saw', age: 25 },
+        { id: 2, firstName: 'Timber', lastName: 'Saw', age: 27 },
+        { id: 4, firstName: 'Timber', lastName: 'Saw', age: 27 },
+        { id: 5, firstName: 'Phantom', lastName: 'Assassin', age: 24 },
+        { id: 6, firstName: 'Timber', lastName: 'Saw', age: 27 },
+        { id: 7, firstName: 'Phantom', lastName: 'Assassin', age: 24 },
+        { id: 8, firstName: 'Timber', lastName: 'Saw', age: 27 },
+        { id: 9, firstName: 'Phantom', lastName: 'Assassin', age: 24 },
+        { id: 10, firstName: 'Timber', lastName: 'Saw', age: 27 },
+        { id: 11, firstName: 'Phantom', lastName: 'Assassin', age: 24 },
+        { id: 12, firstName: 'Timber', lastName: 'Saw', age: 27 },
+        { id: 13, firstName: 'Phantom', lastName: 'Assassin', age: 24 }
+      ];
+      */
 
     // Exercise
     request.get("/user").end(function (err, res) {
@@ -48,8 +64,9 @@ describe("soloProject API Server", () => {
       }
       done();
       // Assert
-
-      //expect(res.body.User).to.be.equals( { id: 1, firstName: 'Timber', lastName: 'Saw', age: 25 }) ;
+      //console.log(res.body);
+      //console.log(User);
+      //expect(res.body).to.be.equals( result) ;
       expect(res).to.have.status(200);
     });
   });
@@ -63,18 +80,18 @@ describe("soloProject API Server", () => {
     };
 
     // Exercise and Assertion
-    request
-      .post("/user/create")
-      .send(addUser)
-      .end(function (req, res) {
-        // Assert
-        console.log(req.body);
-        expect(res).to.have.status(201);
+    //controller.save() ;
+    //request = chai.request(server);
+    const res = await request.post("/user").send(addUser);
+    //.end(function (req, res) {
+    // Assert
+    //console.log(req.body);
+    expect(res).to.have.status(201);
 
-        // expect(pokeData.pokemon[151]).to.be.deep.equal(addPokemon);
+    // expect(pokeData.pokemon[151]).to.be.deep.equal(addPokemon);
 
-        // Ensure password-related fields are inaccessible by users
-        //expect(passwordHash).to.be.undefined;
-      });
+    // Ensure password-related fields are inaccessible by users
+    //expect(passwordHash).to.be.undefined;
+    //});
   });
 });

@@ -29,15 +29,11 @@ const setupServer = () => {
     });
   });
 
-  app.post("/user/create", (req, res) => {
-    DatabaseConnectionManager.connect().then(async (connection) => {
-      console.log(req.body);
-      const getRepo = await getRepository(User);
-      const target = await getRepo.save(req.body);
-
-      res.send(target);
-      res.status(201).end();
-    });
+  app.post("/user", async (req, res) => {
+    const getRepo = await getRepository(User);
+    const target = await getRepo.save(req.body);
+    res.status(201).send(target);
+    //テストは合格したけど、 DatabaseConnectionManagerでの実装はできなかった。getRepositoryで実装できてるからいいか。。。
   });
 
   return app;
