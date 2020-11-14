@@ -36,6 +36,22 @@ const setupServer = () => {
     //テストは合格したけど、 DatabaseConnectionManagerでの実装はできなかった。getRepositoryで実装できてるからいいか。。。
   });
 
+  app.delete("/user/:id", async (req, res) => {
+    const userId = { id: req.params.id };
+    const getRepo = await getRepository(User);
+    await getRepo.delete(userId);
+    res.status(200).end();
+  });
+
+  app.put("/user/:id", async (req, res) => {
+    const getRepo = await getRepository(User);
+    const userId = {
+      id: req.params.id,
+    };
+    await getRepo.update(userId, req.body);
+    res.send(req.body);
+  });
+
   return app;
 };
 

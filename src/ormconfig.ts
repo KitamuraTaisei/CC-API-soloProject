@@ -21,7 +21,7 @@ export = {
   port: process.env.DB_PORT || 5432,
   username: process.env.DB_USER || "postgres",
   password: process.env.DB_PASSWORD || "taisei1023",
-  database: process.env.DB_NAME || "expense_manager",
+  database: process.env.DB_NAME || "solo_prj",
   entities: ["src/entity/**/*.ts"],
   migrations: ["src/migrations/**/*.ts"],
   seeds: ["src/seeds/**/*.ts"],

@@ -40,23 +40,6 @@ describe("soloProject API Server", () => {
   it("should be able to fetch users", (done) => {
     // Setup
 
-    //const userList = [
-    /*  const result = [
-        { id: 1, firstName: 'Timber', lastName: 'Saw', age: 25 },
-        { id: 2, firstName: 'Timber', lastName: 'Saw', age: 27 },
-        { id: 4, firstName: 'Timber', lastName: 'Saw', age: 27 },
-        { id: 5, firstName: 'Phantom', lastName: 'Assassin', age: 24 },
-        { id: 6, firstName: 'Timber', lastName: 'Saw', age: 27 },
-        { id: 7, firstName: 'Phantom', lastName: 'Assassin', age: 24 },
-        { id: 8, firstName: 'Timber', lastName: 'Saw', age: 27 },
-        { id: 9, firstName: 'Phantom', lastName: 'Assassin', age: 24 },
-        { id: 10, firstName: 'Timber', lastName: 'Saw', age: 27 },
-        { id: 11, firstName: 'Phantom', lastName: 'Assassin', age: 24 },
-        { id: 12, firstName: 'Timber', lastName: 'Saw', age: 27 },
-        { id: 13, firstName: 'Phantom', lastName: 'Assassin', age: 24 }
-      ];
-      */
-
     // Exercise
     request.get("/user").end(function (err, res) {
       if (err) {
@@ -93,5 +76,82 @@ describe("soloProject API Server", () => {
     // Ensure password-related fields are inaccessible by users
     //expect(passwordHash).to.be.undefined;
     //});
+  });
+
+  it("should be able to delete user", async () => {
+    // Setup
+    request = chai.request(server);
+    const testUser = {
+      firstName: "test",
+      lastName: "delete",
+      age: 100,
+    };
+    const setUp = await request.post("/user").send(testUser);
+    expect(setUp).to.have.status(201);
+    const postId = setUp.body.id;
+
+    // Exercise
+    request = chai.request(server);
+    //serverは上げなおさないと上手くいかない。
+    const res = await request.delete("/user/" + postId);
+    //URIは「＋」で明示的に示して上げないと上手くいかない
+    // Assert
+
+    //console.log(req.body);
+    expect(res).to.have.status(200);
+
+    // expect(pokeData.pokemon[151]).to.be.deep.equal(addPokemon);
+
+    // Ensure password-related fields are inaccessible by users
+    //expect(passwordHash).to.be.undefined;
+    //});
+  });
+
+  it("should be able to put user", async () => {
+    // Setup
+    request = chai.request(server);
+    const testUser = {
+      firstName: "test",
+      lastName: "put",
+      age: 100,
+    };
+    const setUp = await request.post("/user").send(testUser);
+    expect(setUp).to.have.status(201);
+    const putId = setUp.body.id;
+
+    const putUser = {
+      firstName: "result",
+      lastName: "put",
+      age: 200,
+    };
+
+    // Exercise
+    request = chai.request(server);
+    const res = await request.put("/user/" + putId).send(putUser);
+    //URIは「＋」で明示的に示して上げないと上手くいかない
+    // Assert
+
+    //console.log(req.body);
+    expect(res).to.have.status(200);
+
+    // expect(pokeData.pokemon[151]).to.be.deep.equal(addPokemon);
+
+    // Ensure password-related fields are inaccessible by users
+    //expect(passwordHash).to.be.undefined;
+    //});
+  });
+  it("make sure that all tests have finished!", (done) => {
+    // Setup
+    // Exercise
+    request.get("/hello").end(function (err, res) {
+      if (err) {
+        return done(err);
+      }
+      done();
+      // Assert
+
+      // expect(res.body).to.deep.equal("world");
+      expect(res).to.have.status(200);
+    });
   });
 });
