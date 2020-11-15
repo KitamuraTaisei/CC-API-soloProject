@@ -4,7 +4,7 @@ import * as express from "express";
 import * as bodyParser from "body-parser";
 import { Request, Response } from "express";
 import { Routes } from "./routes";
-import { User } from "./entity/User";
+import { Diary } from "./entity/diary";
 
 createConnection()
   .then(async (connection) => {
@@ -43,22 +43,26 @@ createConnection()
 
     // insert new users for test
     await connection.manager.save(
-      connection.manager.create(User, {
-        firstName: "Timber",
-        lastName: "Saw",
-        age: 27,
+      connection.manager.create(Diary, {
+        date: "2020/01/01",
+        location: "yokohama",
+        with: "taisei",
+        score: 5,
+        comment: "good",
       })
     );
     await connection.manager.save(
-      connection.manager.create(User, {
-        firstName: "Phantom",
-        lastName: "Assassin",
-        age: 24,
+      connection.manager.create(Diary, {
+        date: "2020/01/02",
+        location: "tokyo",
+        with: "taisei",
+        score: 4,
+        comment: "fine",
       })
     );
 
     console.log(
-      "Express server has started on port 3000. Open http://localhost:3000/users to see results"
+      "Express server has started on port 3000. Open http://localhost:3000/diary to see results"
     );
   })
   .catch((error) => console.log(error));

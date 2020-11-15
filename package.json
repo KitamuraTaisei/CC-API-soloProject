@@ -1,9 +1,12 @@
 {
-  "name": "CC-API-soloProject",
+  "name": "cc-api-soloproject",
   "version": "1.0.0",
   "description": "Let's learn express!",
   "main": "index.js",
-  "repository": "git@github.com:codechrysalis/lecture.express.git",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/codechrysalis/lecture.express.git"
+  },
   "author": "Felix Kirmse <felix@codechrysalis.io>",
   "license": "UNLICENSED",
   "private": true,
@@ -52,6 +55,8 @@
     "eslint-config-prettier": "^6.0.0",
     "eslint-config-problems": "^3.0.1",
     "eslint-plugin-prettier": "^3.1.0",
+    "gulp": "^4.0.2",
+    "gulp-typescript": "^6.0.0-alpha.1",
     "husky": "^3.0.1",
     "mocha": "^6.2.0",
     "nodemon": "^1.19.1",
@@ -59,5 +64,12 @@
     "pretty-quick": "^1.11.1",
     "ts-node": "3.3.0",
     "typescript": "3.3.3333"
+  },
+  "bugs": {
+    "url": "https://github.com/codechrysalis/lecture.express/issues"
+  },
+  "homepage": "https://github.com/codechrysalis/lecture.express#readme",
+  "directories": {
+    "test": "test"
   }
 }
